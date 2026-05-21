@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Router"
+  short_description: "Fast routing to the smallest useful installed skill set."
+  default_prompt: "Use $skill-router to choose relevant installed skills before starting this task."
