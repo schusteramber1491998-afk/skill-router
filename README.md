@@ -124,24 +124,6 @@ git clone https://github.com/schusteramber1491998-afk/skill-router.git ~/.codex/
 使用 figma-use + figma-generate-design，因为目标产物是完整 Figma 页面。
 ```
 
-## 和 UI UX Pro Max 的关系
-
-`ui-ux-pro-max` 是专业 UI/UX 设计 skill，负责网页、移动端、dashboard 等界面的设计判断。
-
-`skill-router` 不替代它，只负责判断“这个任务是否该用 UI UX Pro Max”。如果任务只是后端逻辑、简单改文案、查资料，就不会硬套 UI skill。
-
-## 和 Figma skill 的关系
-
-Figma 相关 skill 适合“把东西写进 Figma 文件”或“操作 Figma 设计系统”。
-
-如果你的目标是实际网页效果，优先走网页代码和浏览器截图验证；只有明确要求 Figma 产物时，Skill Router 才会选择 Figma skill。
-
-## 和 Codex++ 的关系
-
-Codex++ 是 Codex App 的外部增强工具，解决插件入口、会话删除、Markdown 导出、中转配置等桌面端体验问题。
-
-Skill Router 是 Codex skill，解决的是“当前任务该不该加载某个 skill”的判断问题。两者层级不同，可以同时使用。
-
 ## 不做什么
 
 Skill Router 不会：
