@@ -95,6 +95,27 @@ git clone https://github.com/schusteramber1491998-afk/skill-router.git ~/.codex/
 
 安装后重启 Codex，让新 skill 进入可发现列表。
 
+## GitHub Action
+
+本仓库也提供一个轻量 GitHub Action 包装，方便发布到 GitHub Marketplace。
+
+```yaml
+steps:
+  - uses: schusteramber1491998-afk/skill-router@v0.1.0
+```
+
+可选参数：
+
+```yaml
+steps:
+  - uses: schusteramber1491998-afk/skill-router@v0.1.0
+    with:
+      install-path: ~/.codex/skills/skill-router
+      overwrite: true
+```
+
+注意：GitHub Action 只能安装到当前 GitHub Actions runner 环境。日常在本机 Codex 使用时，仍然建议按上面的 `git clone` 方式安装。
+
 ## 示例
 
 用户请求：

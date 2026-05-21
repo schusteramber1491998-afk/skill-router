@@ -1,0 +1,51 @@
+name: "Skill Router for Codex"
+author: "schusteramber1491998-afk"
+description: "Install the Skill Router Codex skill into a GitHub Actions runner."
+
+inputs:
+  install-path:
+    description: "Target directory for the Codex skill. Defaults to ~/.codex/skills/skill-router."
+    required: false
+    default: ""
+  overwrite:
+    description: "Overwrite the target directory if it already exists."
+    required: false
+    default: "false"
+
+outputs:
+  installed-path:
+    description: "The directory where Skill Router was installed."
+    value: ${{ steps.install.outputs.installed-path }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: install
+      name: Install Skill Router
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        target="${{ inputs.install-path }}"
+        if [ -z "$target" ]; then
+          target="$HOME/.codex/skills/skill-router"
+        fi
+
+        if [ -e "$target" ]; then
+          if [ "${{ inputs.overwrite }}" != "true" ]; then
+            echo "::error::Target already exists: $target. Set overwrite: true to replace it."
+            exit 1
+          fi
+          rm -rf "$target"
+        fi
+
+        mkdir -p "$target/agents"
+        cp "$GITHUB_ACTION_PATH/SKILL.md" "$target/SKILL.md"
+        cp "$GITHUB_ACTION_PATH/agents/openai.yaml" "$target/agents/openai.yaml"
+
+        echo "installed-path=$target" >> "$GITHUB_OUTPUT"
+        echo "Skill Router installed at $target"
+
+branding:
+  icon: "shuffle"
+  color: "blue"
