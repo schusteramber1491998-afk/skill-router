@@ -2,14 +2,14 @@
 
 一个给 Codex 用的轻量级元技能：在任务开始时，快速判断**要不要使用 skill**，如果要用，就从已安装 skill 中选择最小、最合适的一组。
 
-它不负责替你写 UI、操作 Figma 或改 Unity 项目。它负责先做分流，避免两类问题：
+它不负责替你写界面、操作设计稿工具或修改游戏引擎项目。它负责先做分流，避免两类问题：
 
 - 明明有合适的 skill，却忘了加载。
 - 一口气加载太多 skill，让上下文变重、判断变乱。
 
 ## 适合谁
 
-适合已经装了多个 Codex skills 的用户，尤其是同时在使用 UI、Figma、Unity、技能安装、技能创建、Codex 维护等多种工作流的人。
+适合已经装了多个 Codex skills 的用户，尤其是同时在使用界面设计、设计稿工具、游戏引擎、技能安装、技能创建、Codex 维护等多种工作流的人。
 
 如果你只有一两个 skill，或者每次都明确知道自己要用哪个 skill，这个项目的收益不大。
 
@@ -17,10 +17,10 @@
 
 Codex skill 多了以后，真正麻烦的不是“有没有能力”，而是：
 
-- 什么时候该用 `ui-ux-pro-max`
-- 什么时候该用 `figma-use`
-- Unity 项目是不是该先用 `unity-project-scout`
-- 安装/创建 skill 应该走哪个系统 skill
+- 什么时候该用 UI/UX 设计类 skill
+- 什么时候该用设计稿工具类 skill
+- 游戏引擎项目是不是该先用项目侦察/结构分析类 skill
+- 安装/创建 skill 应该走哪类系统 skill
 - 普通命令、后端逻辑、资料查询是不是根本不需要 skill
 
 Skill Router 把这些选择固化成一个很短的预检规则。
@@ -35,21 +35,21 @@ Skill Router 把这些选择固化成一个很短的预检规则。
 
 ## 当前路由范围
 
-| 场景 | 推荐 skill |
+| 场景 | 推荐技能类型 |
 | --- | --- |
-| 网页、落地页、后台、dashboard、移动 UI | `ui-ux-pro-max` |
-| 具体前端样式、Tailwind、shadcn/ui、响应式组件 | `ui-styling` |
-| 设计 token、组件规范、CSS variables | `design-system` |
-| 品牌语气、视觉识别、品牌一致性 | `brand` |
-| Logo、图标、CIP、社交图、综合设计任务 | `design` |
-| Banner、广告图、网站 hero 创意图 | `banner-design` |
-| HTML 幻灯片、演示文稿 | `slides` |
-| Figma 文件读写、节点创建、变量/组件操作 | `figma-use` |
-| 从页面/代码/描述生成完整 Figma 画面 | `figma-use` + `figma-generate-design` |
-| Unity Editor 或 Unity 项目工作 | `unity-skills`，再选择 Unity 子技能 |
-| 安装现成 skill | `skill-installer` |
-| 创建或修改 skill | `skill-creator` |
-| Codex 变慢、本地状态清理、日志/会话维护 | `keep-codex-fast` |
+| 网页、落地页、后台、dashboard、移动 UI | UI/UX 设计类 skill |
+| 具体前端样式、组件库、响应式组件 | 前端样式/组件实现类 skill |
+| 设计 token、组件规范、CSS variables | 设计系统类 skill |
+| 品牌语气、视觉识别、品牌一致性 | 品牌管理类 skill |
+| Logo、图标、社交图、综合设计任务 | 通用视觉设计类 skill |
+| Banner、广告图、网站 hero 创意图 | Banner/营销素材类 skill |
+| HTML 幻灯片、演示文稿 | 幻灯片/演示文稿类 skill |
+| 设计稿文件读写、节点创建、变量/组件操作 | 设计稿工具操作类 skill |
+| 从页面/代码/描述生成完整设计稿画面 | 设计稿生成类 skill |
+| 游戏引擎编辑器或项目工作 | 游戏引擎类 skill，再选择更具体的子技能 |
+| 安装现成 skill | 技能安装类 skill |
+| 创建或修改 skill | 技能创建类 skill |
+| Codex 变慢、本地状态清理、日志/会话维护 | Codex 维护类 skill |
 
 ## 使用方式
 
@@ -97,7 +97,7 @@ git clone https://github.com/schusteramber1491998-afk/skill-router.git ~/.codex/
 路由结果：
 
 ```text
-使用 ui-ux-pro-max + ui-styling，因为这会改变网页 UI 结构和具体样式。
+使用 UI/UX 设计类 skill + 前端样式实现类 skill，因为这会改变网页 UI 结构和具体样式。
 ```
 
 用户请求：
@@ -115,13 +115,13 @@ git clone https://github.com/schusteramber1491998-afk/skill-router.git ~/.codex/
 用户请求：
 
 ```text
-把这个页面写到 Figma 里
+把这个页面写到设计稿工具里
 ```
 
 路由结果：
 
 ```text
-使用 figma-use + figma-generate-design，因为目标产物是完整 Figma 页面。
+使用设计稿工具操作类 skill + 设计稿生成类 skill，因为目标产物是完整设计稿页面。
 ```
 
 ## 不做什么
@@ -134,7 +134,7 @@ Skill Router 不会：
 - 为简单任务强行输出长篇计划。
 - 绕过系统或开发者指令中对特定 skill 的强制要求。
 
-如果确实需要找新 skill，它会先提示你确认，然后再交给 `skill-installer` 或普通 GitHub 搜索。
+如果确实需要找新 skill，它会先提示你确认，然后再交给技能安装类 skill 或普通 GitHub 搜索。
 
 ## 自定义
 
