@@ -12,6 +12,8 @@ The goal is to prevent both failure modes:
 - forgetting a useful installed skill
 - loading extra skills that add context noise without helping
 
+Core boundary: this skill routes to installed skills only. It should not browse for new skills, install packages, or mutate the skill list unless the user explicitly asks for that.
+
 ## Routing Workflow
 
 1. Classify the task by outcome:
@@ -33,6 +35,14 @@ The goal is to prevent both failure modes:
 Target time: under 2 seconds for normal requests. Only spend longer when the user explicitly asks for a skill strategy, the task crosses several domains, or the installed skill list has changed.
 
 This skill only chooses from installed skills. Do not browse for new skills or install anything unless the user explicitly asks to find, install, or create a skill.
+
+## Priority Rules
+
+- Explicit user skill request wins: if the user names a skill, use it when available.
+- Mandatory tool prerequisite wins: for example, use `figma-use` before `use_figma`.
+- Specific beats broad: prefer `banner-design` for banners over generic `design`; prefer `skill-creator` for skill edits over this router.
+- If the task is simple and no skill clearly helps, skip skills.
+- If no installed skill fits but one would clearly help, say that briefly and ask before searching or installing.
 
 ## When No Skill Is Needed
 
